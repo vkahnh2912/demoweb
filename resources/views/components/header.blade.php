@@ -46,11 +46,11 @@
     </div>
 
     <!-- 2. Main Navigation Bar -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-16 sm:h-20">
+    <div class="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16 sm:h-20 gap-2 sm:gap-4">
 
             <!-- Mobile Left: Hamburger Button & Search -->
-            <div class="flex items-center gap-1 lg:hidden">
+            <div class="flex items-center gap-1 lg:hidden shrink-0">
                 <button type="button"
                         @click="mobileMenuOpen = true"
                         class="p-2 -ml-2 text-zinc-900 hover:text-black focus:outline-none"
@@ -70,32 +70,32 @@
             </div>
 
             <!-- Brand Logo -->
-            <div class="flex-shrink-0 flex items-center">
+            <div class="shrink-0 flex items-center">
                 <a href="{{ route('home') }}" class="group flex flex-col items-center">
-                    <span class="text-2xl sm:text-3xl font-extrabold tracking-[0.25em] text-zinc-950 uppercase group-hover:opacity-90 transition-opacity">
+                    <span class="text-xl sm:text-2xl xl:text-3xl font-extrabold tracking-[0.22em] text-zinc-950 uppercase group-hover:opacity-90 transition-opacity whitespace-nowrap">
                         NOVAWEAR
                     </span>
-                    <span class="text-[8.5px] tracking-[0.4em] text-zinc-400 uppercase -mt-1 font-medium group-hover:text-zinc-600 transition-colors">
+                    <span class="text-[8px] sm:text-[8.5px] tracking-[0.38em] text-zinc-400 uppercase -mt-1 font-medium group-hover:text-zinc-600 transition-colors whitespace-nowrap">
                         CONTEMPORARY
                     </span>
                 </a>
             </div>
 
             <!-- Desktop Navigation Menu -->
-            <nav class="hidden lg:flex items-center space-x-6 xl:space-x-8 text-xs font-semibold uppercase tracking-wider">
+            <nav class="hidden lg:flex items-center gap-2 xl:gap-5 2xl:gap-7 text-[11px] xl:text-xs font-semibold uppercase tracking-wider whitespace-nowrap shrink-0">
                 
                 <!-- Trang Chủ -->
                 <a href="{{ route('home') }}"
-                   class="py-2 {{ request()->routeIs('home') ? 'text-black border-b-2 border-black font-bold' : 'text-zinc-700 hover:text-black transition-colors' }}">
+                   class="py-2 px-1 whitespace-nowrap shrink-0 {{ request()->routeIs('home') ? 'text-black border-b-2 border-black font-bold' : 'text-zinc-700 hover:text-black transition-colors' }}">
                     Trang Chủ
                 </a>
 
                 <!-- Shop (with Mega Menu Dropdown) -->
-                <div class="relative group" @mouseenter="activeDropdown = 'shop'" @mouseleave="activeDropdown = null">
+                <div class="relative group shrink-0" @mouseenter="activeDropdown = 'shop'" @mouseleave="activeDropdown = null">
                     <a href="{{ route('shop') }}"
-                       class="py-2 flex items-center gap-1 {{ request()->routeIs('shop') && !request()->hasAny(['filter', 'category']) ? 'text-black border-b-2 border-black font-bold' : 'text-zinc-700 hover:text-black transition-colors' }}">
+                       class="py-2 px-1 flex items-center gap-1 whitespace-nowrap {{ request()->routeIs('shop') && !request()->hasAny(['filter', 'category']) ? 'text-black border-b-2 border-black font-bold' : 'text-zinc-700 hover:text-black transition-colors' }}">
                         <span>Cửa Hàng</span>
-                        <svg class="w-3 h-3 text-zinc-400 group-hover:text-black transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        <svg class="w-3 h-3 text-zinc-400 group-hover:text-black transition-transform group-hover:rotate-180 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </a>
 
                     <!-- Mega Menu Container -->
@@ -159,11 +159,11 @@
                 </div>
 
                 <!-- Men (Thời Trang Nam) -->
-                <div class="relative group" @mouseenter="activeDropdown = 'men'" @mouseleave="activeDropdown = null">
+                <div class="relative group shrink-0" @mouseenter="activeDropdown = 'men'" @mouseleave="activeDropdown = null">
                     <a href="{{ route('shop', ['category' => 'ao-so-mi']) }}"
-                       class="py-2 flex items-center gap-1 text-zinc-700 hover:text-black transition-colors">
+                       class="py-2 px-1 flex items-center gap-1 text-zinc-700 hover:text-black transition-colors whitespace-nowrap">
                         <span>Nam</span>
-                        <svg class="w-3 h-3 text-zinc-400 group-hover:text-black transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        <svg class="w-3 h-3 text-zinc-400 group-hover:text-black transition-transform group-hover:rotate-180 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </a>
 
                     <div x-show="activeDropdown === 'men'"
@@ -180,11 +180,11 @@
                 </div>
 
                 <!-- Women (Thời Trang Nữ) -->
-                <div class="relative group" @mouseenter="activeDropdown = 'women'" @mouseleave="activeDropdown = null">
+                <div class="relative group shrink-0" @mouseenter="activeDropdown = 'women'" @mouseleave="activeDropdown = null">
                     <a href="{{ route('category.show', 'vay-dam') }}"
-                       class="py-2 flex items-center gap-1 text-zinc-700 hover:text-black transition-colors">
+                       class="py-2 px-1 flex items-center gap-1 text-zinc-700 hover:text-black transition-colors whitespace-nowrap">
                         <span>Nữ</span>
-                        <svg class="w-3 h-3 text-zinc-400 group-hover:text-black transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        <svg class="w-3 h-3 text-zinc-400 group-hover:text-black transition-transform group-hover:rotate-180 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </a>
 
                     <div x-show="activeDropdown === 'women'"
@@ -200,83 +200,94 @@
 
                 <!-- New Arrivals -->
                 <a href="{{ route('shop', ['filter' => 'new']) }}"
-                   class="py-2 flex items-center gap-1.5 text-zinc-900 hover:text-black transition-colors">
+                   class="py-2 px-1 flex items-center gap-1.5 text-zinc-900 hover:text-black transition-colors whitespace-nowrap shrink-0">
                     <span>Hàng Mới</span>
-                    <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
                 </a>
 
                 <!-- Sale Hot -->
                 <a href="{{ route('shop', ['filter' => 'sale']) }}"
-                   class="py-2 flex items-center gap-1.5 font-bold text-rose-600 hover:text-rose-700 transition-colors">
+                   class="py-2 px-1 flex items-center gap-1.5 font-bold text-rose-600 hover:text-rose-700 transition-colors whitespace-nowrap shrink-0">
                     <span>Sale</span>
-                    <span class="px-1.5 py-0.2 bg-rose-600 text-white text-[9px] font-extrabold tracking-wider rounded-none">HOT</span>
+                    <span class="px-1.5 py-0.5 bg-rose-600 text-white text-[8px] font-extrabold tracking-wider shrink-0">HOT</span>
                 </a>
 
                 <!-- Blog Journal -->
                 <a href="{{ route('blog.index') }}"
-                   class="py-2 {{ request()->routeIs('blog.*') ? 'text-black border-b-2 border-black font-bold' : 'text-zinc-700 hover:text-black transition-colors' }}">
+                   class="py-2 px-1 whitespace-nowrap shrink-0 {{ request()->routeIs('blog.*') ? 'text-black border-b-2 border-black font-bold' : 'text-zinc-700 hover:text-black transition-colors' }}">
                     Journal
                 </a>
 
-                <!-- Giới Thiệu -->
+                <!-- Giới Thiệu (visible on xl and up to optimize spacing on laptop screens) -->
                 <a href="{{ route('about') }}"
-                   class="py-2 {{ request()->routeIs('about') ? 'text-black border-b-2 border-black font-bold' : 'text-zinc-700 hover:text-black transition-colors' }}">
-                    Về Chúng Tôi
+                   class="hidden xl:inline-block py-2 px-1 whitespace-nowrap shrink-0 {{ request()->routeIs('about') ? 'text-black border-b-2 border-black font-bold' : 'text-zinc-700 hover:text-black transition-colors' }}">
+                    Giới Thiệu
                 </a>
             </nav>
 
             <!-- Right Utility Icons (Search, Wishlist, Cart, Account) -->
-            <div class="flex items-center space-x-1 sm:space-x-3">
-                <!-- Search Icon (Desktop) -->
+            <div class="flex items-center space-x-1 sm:space-x-2 xl:space-x-3 shrink-0">
+                <!-- Search Button (2XL Expanded Bar) -->
                 <button type="button"
                         @click="$dispatch('open-search')"
-                        class="hidden sm:flex items-center gap-2 px-3 py-1.5 text-zinc-700 hover:text-black border border-zinc-200 hover:border-zinc-400 bg-zinc-50 transition-all rounded-none"
+                        class="hidden 2xl:flex items-center gap-2 px-3 py-1.5 text-zinc-700 hover:text-black border border-zinc-200 hover:border-zinc-400 bg-zinc-50 transition-all shrink-0"
                         aria-label="Tìm kiếm">
-                    <svg class="w-4 h-4 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-4 h-4 text-zinc-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
-                    <span class="text-xs text-zinc-400 font-normal">Tìm kiếm...</span>
-                    <span class="text-[10px] text-zinc-400 font-mono border border-zinc-300 px-1 py-0.5 bg-white ml-2">⌘K</span>
+                    <span class="text-xs text-zinc-400 font-normal whitespace-nowrap">Tìm kiếm...</span>
+                    <span class="text-[10px] text-zinc-400 font-mono border border-zinc-300 px-1 bg-white shrink-0">⌘K</span>
+                </button>
+
+                <!-- Search Button (Icon on md to xl screens) -->
+                <button type="button"
+                        @click="$dispatch('open-search')"
+                        class="hidden md:flex 2xl:hidden p-2 text-zinc-800 hover:text-black hover:bg-zinc-100 transition-colors shrink-0"
+                        title="Tìm kiếm"
+                        aria-label="Tìm kiếm">
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
                 </button>
 
                 <!-- Wishlist Button with Badge -->
                 <a href="{{ route('wishlist.index') }}"
-                   class="relative p-2.5 text-zinc-800 hover:text-black hover:bg-zinc-100 transition-colors"
+                   class="relative p-2 text-zinc-800 hover:text-black hover:bg-zinc-100 transition-colors shrink-0"
                    title="Sản phẩm yêu thích"
                    aria-label="Danh sách yêu thích">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                     </svg>
                     <span x-show="wishlistCount > 0"
                           x-text="wishlistCount"
-                          class="absolute top-1 right-1 w-4 h-4 bg-zinc-950 text-white text-[10px] font-bold flex items-center justify-center">
+                          class="absolute top-0.5 right-0.5 w-4 h-4 bg-zinc-950 text-white text-[10px] font-bold flex items-center justify-center">
                     </span>
                 </a>
 
                 <!-- Cart Button with Slide-over Drawer -->
                 <button type="button"
                         @click="$dispatch('open-cart-drawer')"
-                        class="relative p-2.5 text-zinc-800 hover:text-black hover:bg-zinc-100 transition-colors"
+                        class="relative p-2 text-zinc-800 hover:text-black hover:bg-zinc-100 transition-colors shrink-0"
                         title="Giỏ hàng"
                         aria-label="Giỏ hàng">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                     </svg>
                     <span x-show="cartCount > 0"
                           x-text="cartCount"
-                          class="absolute top-1 right-1 w-4 h-4 bg-zinc-950 text-white text-[10px] font-bold flex items-center justify-center">
+                          class="absolute top-0.5 right-0.5 w-4 h-4 bg-zinc-950 text-white text-[10px] font-bold flex items-center justify-center">
                     </span>
                 </button>
 
                 <!-- User Account / Dropdown -->
-                <div class="relative" x-data="{ open: false }">
+                <div class="relative shrink-0" x-data="{ open: false }">
                     @auth
-                        <button @click="open = !open" @click.outside="open = false" type="button" class="flex items-center gap-2 p-1.5 sm:px-2.5 sm:py-1.5 border border-zinc-200 hover:border-zinc-400 bg-white text-zinc-800 transition-colors focus:outline-none">
-                            <span class="w-6 h-6 rounded-full bg-zinc-950 text-white text-[11px] font-bold flex items-center justify-center uppercase">
+                        <button @click="open = !open" @click.outside="open = false" type="button" class="flex items-center gap-1.5 p-1.5 sm:px-2.5 sm:py-1.5 border border-zinc-200 hover:border-zinc-400 bg-white text-zinc-800 transition-colors focus:outline-none shrink-0 whitespace-nowrap">
+                            <span class="w-6 h-6 rounded-full bg-zinc-950 text-white text-[11px] font-bold flex items-center justify-center uppercase shrink-0">
                                 {{ substr(Auth::user()->name, 0, 1) }}
                             </span>
-                            <span class="hidden md:inline text-xs font-semibold text-zinc-900 max-w-[90px] truncate">{{ Auth::user()->name }}</span>
-                            <svg class="w-3.5 h-3.5 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            <span class="hidden md:inline text-xs font-semibold text-zinc-900 max-w-[80px] xl:max-w-[100px] truncate whitespace-nowrap">{{ Auth::user()->name }}</span>
+                            <svg class="w-3.5 h-3.5 text-zinc-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </button>
 
                         <div x-show="open"
@@ -289,8 +300,8 @@
                             </div>
 
                             @if(Auth::user()->isAdmin())
-                                <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2 px-4 py-2 font-bold text-amber-700 bg-amber-50 hover:bg-amber-100">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                                <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2 px-4 py-2 font-bold text-amber-700 bg-amber-50 hover:bg-amber-100 whitespace-nowrap">
+                                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                                     Trang Quản Trị
                                 </a>
                                 <hr class="my-1 border-zinc-100" />
@@ -308,11 +319,11 @@
                             </form>
                         </div>
                     @else
-                        <a href="{{ route('login') }}" class="p-2 sm:px-3 sm:py-1.5 text-zinc-800 hover:text-white hover:bg-zinc-950 border border-zinc-300 hover:border-zinc-950 transition-all flex items-center gap-1.5" aria-label="Đăng nhập">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <a href="{{ route('login') }}" class="p-2 sm:px-2.5 sm:py-1.5 xl:px-3 text-zinc-800 hover:text-white hover:bg-zinc-950 border border-zinc-300 hover:border-zinc-950 transition-all flex items-center gap-1.5 shrink-0 whitespace-nowrap" aria-label="Đăng nhập">
+                            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
-                            <span class="hidden sm:inline text-xs font-semibold uppercase tracking-wider">Đăng Nhập</span>
+                            <span class="hidden md:inline text-xs font-semibold uppercase tracking-wider whitespace-nowrap">Đăng Nhập</span>
                         </a>
                     @endauth
                 </div>
