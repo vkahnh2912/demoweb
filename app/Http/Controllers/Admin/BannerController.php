@@ -38,6 +38,10 @@ class BannerController extends Controller
             $validated['image'] = $request->file('image_file')->store('banners', 'public');
         }
 
+        if (empty($validated['image'])) {
+            $validated['image'] = 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1920&q=85';
+        }
+
         Banner::create($validated);
 
         return redirect()->route('admin.banners.index')->with('success', 'Đã thêm banner mới thành công!');
