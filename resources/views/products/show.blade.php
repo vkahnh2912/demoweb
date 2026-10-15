@@ -389,16 +389,48 @@
         </section>
     @endif
 
-    <!-- RECENTLY VIEWED PRODUCTS -->
-    @if($recentlyViewed->isNotEmpty())
-        <section class="border-t border-zinc-200 pt-16">
-            <div class="text-center max-w-xl mx-auto mb-10 space-y-2">
-                <span class="text-[11px] font-bold uppercase tracking-[0.25em] text-zinc-400">Đã Xem Gần Đây</span>
-                <h2 class="text-2xl font-extrabold uppercase tracking-tight text-zinc-950">Sản Phẩm Bạn Vừa Xem</h2>
+    <!-- STICKY MOBILE PURCHASE BAR -->
+    <div class="fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-zinc-200 px-3.5 py-2.5 lg:hidden flex items-center justify-between gap-3 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] pb-[calc(0.6rem+env(safe-area-inset-bottom))]">
+        <div class="flex items-center gap-2.5 min-w-0 flex-1">
+            <img :src="selectedImage" alt="{{ $product->name }}" class="w-10 h-12 object-cover bg-zinc-100 border border-zinc-200 shrink-0" />
+            <div class="min-w-0">
+                <div class="flex items-baseline gap-1.5">
+                    <span class="text-sm font-extrabold text-zinc-950">{{ number_format($product->sale_price ?? $product->price) }}₫</span>
+                    @if($product->sale_price && $product->sale_price < $product->price)
+                        <span class="text-[10px] text-zinc-400 line-through">{{ number_format($product->price) }}₫</span>
+                    @endif
+                </div>
+                <p class="text-[11px] text-zinc-500 truncate">
+                    <span x-text="selectedColor ? selectedColor : ''"></span>
+                    <span x-show="selectedColor && selectedSize"> • </span>
+                    <span x-text="selectedSize ? 'Size ' + selectedSize : ''"></span>
+                </p>
             </div>
-            <x-product-grid :products="$recentlyViewed" :cols="4" />
-        </section>
-    @endif
+        </div>
+
+        <div class="flex items-center gap-2 shrink-0">
+            <!-- Add to Cart Button -->
+            <button type="button"
+                    @click="addToCart(false)"
+                    :disabled="!{{ $product->is_in_stock ? 'true' : 'false' }} || addingToCart"
+                    class="px-3.5 py-2.5 bg-zinc-950 hover:bg-zinc-800 text-white text-[11px] font-bold uppercase tracking-wider disabled:opacity-50 transition-colors flex items-center gap-1.5 shadow-sm">
+                <template x-if="addingToCart">
+                    <span class="inline-block animate-spin mr-0.5">⟳</span>
+                </template>
+                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
+                <span>Thêm Giỏ</span>
+            </button>
+
+            <!-- Buy Now Button -->
+            @if($product->is_in_stock)
+                <button type="button"
+                        @click="addToCart(true)"
+                        class="px-3.5 py-2.5 bg-rose-600 hover:bg-rose-700 text-white text-[11px] font-bold uppercase tracking-wider transition-colors shadow-sm">
+                    Mua Ngay
+                </button>
+            @endif
+        </div>
+    </div>
 
 </div>
 @endsection

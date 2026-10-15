@@ -21,21 +21,24 @@
         </div>
 
         <!-- Sort dropdown & Mobile filter toggle -->
-        <div class="flex items-center gap-3">
+        <div class="sticky top-16 z-20 bg-white/95 backdrop-blur-md py-3 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:mx-0 lg:px-0 lg:static lg:bg-transparent flex items-center justify-between gap-3 border-b border-zinc-100 lg:border-none">
             <!-- Mobile Filter Button -->
             <button type="button"
                     @click="mobileFilterOpen = true"
-                    class="lg:hidden inline-flex items-center gap-2 px-4 py-2 border border-zinc-900 text-xs font-semibold uppercase tracking-wider text-zinc-900 hover:bg-zinc-900 hover:text-white transition-colors">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+                    class="lg:hidden inline-flex items-center gap-2 px-3.5 py-2 bg-zinc-950 text-white text-xs font-semibold uppercase tracking-wider shadow-sm">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
                 <span>Bộ Lọc</span>
+                @if(request()->hasAny(['category', 'brand', 'size', 'color', 'min_price', 'max_price', 'in_stock']))
+                    <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                @endif
             </button>
 
             <!-- Sorting Select -->
-            <div class="flex items-center gap-2 text-xs">
+            <div class="flex items-center gap-2 text-xs ml-auto">
                 <label for="sort-select" class="text-zinc-500 hidden sm:inline whitespace-nowrap">Sắp xếp:</label>
                 <select id="sort-select"
                         onchange="window.location.href = this.value"
-                        class="border-zinc-300 text-xs py-2 px-3 focus:ring-0 focus:border-zinc-900 bg-white font-medium">
+                        class="border-zinc-300 text-xs py-2 px-2.5 sm:px-3 focus:ring-0 focus:border-zinc-900 bg-white font-medium">
                     <option value="{{ request()->fullUrlWithQuery(['sort' => 'latest']) }}" {{ $sort === 'latest' ? 'selected' : '' }}>Mới nhất</option>
                     <option value="{{ request()->fullUrlWithQuery(['sort' => 'price_asc']) }}" {{ $sort === 'price_asc' ? 'selected' : '' }}>Giá: Thấp đến Cao</option>
                     <option value="{{ request()->fullUrlWithQuery(['sort' => 'price_desc']) }}" {{ $sort === 'price_desc' ? 'selected' : '' }}>Giá: Cao đến Thấp</option>
@@ -229,24 +232,33 @@
          x-transition:leave="transform transition ease-in-out duration-300"
          x-transition:leave-start="translate-x-0"
          x-transition:leave-end="translate-x-full"
-         class="fixed inset-y-0 right-0 w-4/5 max-w-sm bg-white shadow-2xl z-50 overflow-y-auto p-6 flex flex-col justify-between lg:hidden"
+         class="fixed inset-y-0 right-0 w-[85vw] max-w-sm bg-white shadow-2xl z-50 overflow-y-auto p-5 flex flex-col justify-between lg:hidden"
          style="display: none;">
 
         <div class="space-y-6">
-            <div class="flex items-center justify-between pb-4 border-b border-zinc-200">
-                <h3 class="text-sm font-bold uppercase tracking-wider text-zinc-900">Bộ Lọc Sản Phẩm</h3>
-                <button type="button" @click="mobileFilterOpen = false" class="text-zinc-500 hover:text-black">
+            <div class="flex items-center justify-between pb-3 border-b border-zinc-200">
+                <div>
+                    <h3 class="text-sm font-bold uppercase tracking-wider text-zinc-950">Bộ Lọc Sản Phẩm</h3>
+                    <span class="text-[11px] text-zinc-400">Tùy chỉnh kết quả theo nhu cầu</span>
+                </div>
+                <button type="button" @click="mobileFilterOpen = false" class="w-8 h-8 flex items-center justify-center text-zinc-500 hover:text-black">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>
             </div>
 
             <!-- Mobile Categories -->
             <div class="space-y-2">
-                <h4 class="text-xs font-bold uppercase text-zinc-900">Danh Mục</h4>
-                <div class="space-y-1.5 text-xs">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-zinc-900">Danh Mục Sản Phẩm</h4>
+                <div class="space-y-1.5 text-xs max-h-40 overflow-y-auto pr-1">
+                    <a href="{{ request()->fullUrlWithQuery(['category' => null]) }}"
+                       class="flex justify-between items-center py-1 {{ !request('category') ? 'font-bold text-zinc-950' : 'text-zinc-600' }}">
+                        <span>Tất cả danh mục</span>
+                    </a>
                     @foreach($categories as $c)
-                        <a href="{{ request()->fullUrlWithQuery(['category' => $c->slug]) }}" class="block py-1 {{ request('category') === $c->slug ? 'font-bold text-zinc-950' : 'text-zinc-600' }}">
-                            {{ $c->name }} ({{ $c->products_count }})
+                        <a href="{{ request()->fullUrlWithQuery(['category' => $c->slug]) }}"
+                           class="flex justify-between items-center py-1 {{ request('category') === $c->slug ? 'font-bold text-zinc-950' : 'text-zinc-600' }}">
+                            <span>{{ $c->name }}</span>
+                            <span class="text-zinc-400 text-[11px]">({{ $c->products_count }})</span>
                         </a>
                     @endforeach
                 </div>
@@ -254,21 +266,57 @@
 
             <!-- Mobile Sizes -->
             <div class="space-y-2">
-                <h4 class="text-xs font-bold uppercase text-zinc-900">Kích Cỡ</h4>
+                <h4 class="text-xs font-bold uppercase tracking-wider text-zinc-900">Kích Cỡ</h4>
                 <div class="grid grid-cols-4 gap-2 text-center text-xs">
                     @foreach($availableSizes as $s)
-                        <a href="{{ request()->fullUrlWithQuery(['size' => request('size') === $s ? null : $s]) }}" class="py-2 border text-xs font-medium {{ request('size') === $s ? 'bg-zinc-900 text-white' : 'border-zinc-200' }}">
+                        <a href="{{ request()->fullUrlWithQuery(['size' => request('size') === $s ? null : $s]) }}"
+                           class="py-2 border text-xs font-semibold uppercase {{ request('size') === $s ? 'bg-zinc-950 text-white border-zinc-950' : 'border-zinc-200 text-zinc-800' }}">
                             {{ $s }}
                         </a>
                     @endforeach
                 </div>
             </div>
 
+            <!-- Mobile Colors -->
+            <div class="space-y-2">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-zinc-900">Màu Sắc</h4>
+                <div class="flex flex-wrap gap-2">
+                    @foreach($availableColors as $col)
+                        <a href="{{ request()->fullUrlWithQuery(['color' => request('color') === $col['name'] ? null : $col['name']]) }}"
+                           class="inline-flex items-center gap-1.5 px-2.5 py-1.5 border text-xs {{ request('color') === $col['name'] ? 'border-zinc-900 bg-zinc-100 font-semibold' : 'border-zinc-200' }}">
+                            <span class="w-3 h-3 rounded-full border border-zinc-300" style="background-color: {{ $col['code'] }}"></span>
+                            <span>{{ $col['name'] }}</span>
+                        </a>
+                    @endforeach
+                </div>
+            </div>
+
+            <!-- Mobile Price Filter -->
+            <div class="space-y-2">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-zinc-900">Khoảng Giá</h4>
+                <form action="{{ url()->current() }}" method="GET" class="space-y-2.5">
+                    @foreach(request()->except(['min_price', 'max_price', 'page']) as $k => $v)
+                        <input type="hidden" name="{{ $k }}" value="{{ $v }}">
+                    @endforeach
+                    <div class="flex items-center gap-2 text-xs">
+                        <input type="number" name="min_price" value="{{ request('min_price') }}" placeholder="Từ ₫" class="w-full text-xs p-2 border-zinc-300 focus:border-zinc-900 focus:ring-0" />
+                        <span>-</span>
+                        <input type="number" name="max_price" value="{{ request('max_price') }}" placeholder="Đến ₫" class="w-full text-xs p-2 border-zinc-300 focus:border-zinc-900 focus:ring-0" />
+                    </div>
+                    <button type="submit" class="w-full py-2 bg-zinc-900 text-white text-xs uppercase tracking-wider font-semibold">
+                        Lọc Giá
+                    </button>
+                </form>
+            </div>
+
             <!-- Clear filters button -->
-            <div class="pt-4 border-t border-zinc-200">
-                <a href="{{ route('shop') }}" class="block w-full py-2.5 bg-zinc-100 text-zinc-900 text-center text-xs uppercase tracking-wider font-semibold">
+            <div class="pt-3 border-t border-zinc-200 space-y-2">
+                <a href="{{ route('shop') }}" class="block w-full py-2.5 bg-zinc-100 text-zinc-800 text-center text-xs uppercase tracking-wider font-semibold hover:bg-zinc-200">
                     Xóa Tất Cả Bộ Lọc
                 </a>
+                <button type="button" @click="mobileFilterOpen = false" class="block w-full py-2.5 bg-zinc-950 text-white text-center text-xs uppercase tracking-wider font-bold">
+                    Hoàn Tất
+                </button>
             </div>
         </div>
     </div>

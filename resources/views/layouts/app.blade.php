@@ -40,7 +40,7 @@
     <x-header />
 
     <!-- Main Content Area -->
-    <main class="flex-grow">
+    <main class="flex-grow pb-16 lg:pb-0">
         <!-- Flash Messages -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
             @if(session('success'))
@@ -64,12 +64,14 @@
     <!-- Footer Component -->
     <x-footer />
 
-    <!-- Interactive Global Modals -->
+    <!-- Interactive Global Modals & Drawers -->
     <x-search />
     <x-cart />
+    <x-mobile-drawer />
+    <x-mobile-bottom-nav />
 
     <!-- Toast Notification System -->
-    <div class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none px-4 sm:px-0">
+    <div class="fixed bottom-20 sm:bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none px-4 sm:px-0">
         <template x-for="t in toasts" :key="t.id">
             <div x-transition:enter="transform ease-out duration-300 transition"
                  x-transition:enter-start="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"

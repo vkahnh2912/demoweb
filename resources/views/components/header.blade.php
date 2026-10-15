@@ -31,10 +31,10 @@
                 <span>Hỗ trợ 24/7 toàn quốc</span>
             </div>
 
-            <div class="flex-1 text-center font-medium">
-                <span>✨ MIỄN PHÍ VẬN CHUYỂN TOÀN QUỐC ĐƠN TỪ 500K</span>
-                <span class="mx-2 opacity-40">|</span>
-                <span>MÃ ƯU ĐÃI: <strong class="text-amber-300 font-bold tracking-widest">WELCOME10</strong> (-10%)</span>
+            <div class="flex-1 text-center font-medium truncate px-2 text-[10.5px] sm:text-[11px]">
+                <span class="hidden sm:inline">✨ MIỄN PHÍ VẬN CHUYỂN TOÀN QUỐC ĐƠN TỪ 500K <span class="mx-2 opacity-40">|</span></span>
+                <span class="sm:hidden">✨ FREESHIP ĐƠN 500K <span class="mx-1.5 opacity-40">|</span></span>
+                <span>MÃ: <strong class="text-amber-300 font-bold tracking-widest">WELCOME10</strong> (-10%)</span>
             </div>
 
             <div class="hidden md:flex items-center gap-4 text-zinc-400">
@@ -52,7 +52,7 @@
             <!-- Mobile Left: Hamburger Button & Search -->
             <div class="flex items-center gap-1 lg:hidden shrink-0">
                 <button type="button"
-                        @click="mobileMenuOpen = true"
+                        @click="$dispatch('open-mobile-menu')"
                         class="p-2 -ml-2 text-zinc-900 hover:text-black focus:outline-none"
                         aria-label="Mở menu">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -319,117 +319,14 @@
                             </form>
                         </div>
                     @else
-                        <a href="{{ route('login') }}" class="p-2 sm:px-2.5 sm:py-1.5 xl:px-3 text-zinc-800 hover:text-white hover:bg-zinc-950 border border-zinc-300 hover:border-zinc-950 transition-all flex items-center gap-1.5 shrink-0 whitespace-nowrap" aria-label="Đăng nhập">
-                            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <a href="{{ route('login') }}" class="p-2 sm:px-2.5 sm:py-1.5 xl:px-3 text-zinc-800 hover:text-white hover:bg-zinc-950 sm:border sm:border-zinc-300 sm:hover:border-zinc-950 transition-all flex items-center gap-1.5 shrink-0 whitespace-nowrap" aria-label="Đăng nhập">
+                            <svg class="w-5 h-5 sm:w-4 sm:h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
                             <span class="hidden md:inline text-xs font-semibold uppercase tracking-wider whitespace-nowrap">Đăng Nhập</span>
                         </a>
                     @endauth
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 3. Mobile Navigation Drawer -->
-    <div x-show="mobileMenuOpen"
-         x-transition:enter="ease-out duration-300"
-         x-transition:enter-start="opacity-0"
-         x-transition:enter-end="opacity-100"
-         x-transition:leave="ease-in duration-200"
-         x-transition:leave-start="opacity-100"
-         x-transition:leave-end="opacity-0"
-         class="fixed inset-0 bg-black/60 z-50 lg:hidden"
-         @click="mobileMenuOpen = false"
-         style="display: none;"></div>
-
-    <div x-show="mobileMenuOpen"
-         x-transition:enter="transform transition ease-in-out duration-300"
-         x-transition:enter-start="-translate-x-full"
-         x-transition:enter-end="translate-x-0"
-         x-transition:leave="transform transition ease-in-out duration-300"
-         x-transition:leave-start="translate-x-0"
-         x-transition:leave-end="-translate-x-full"
-         class="fixed inset-y-0 left-0 w-4/5 max-w-sm bg-white shadow-2xl z-50 overflow-y-auto flex flex-col justify-between lg:hidden"
-         style="display: none;">
-
-        <div class="p-5">
-            <!-- Header inside drawer -->
-            <div class="flex items-center justify-between pb-4 border-b border-zinc-200">
-                <span class="text-xl font-extrabold tracking-widest text-zinc-950 uppercase">NOVAWEAR</span>
-                <button type="button" @click="mobileMenuOpen = false" class="text-zinc-500 hover:text-black">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                </button>
-            </div>
-
-            <!-- Mobile Quick Search -->
-            <div class="pt-4 pb-2">
-                <form action="{{ route('search') }}" method="GET" class="relative">
-                    <input type="text" name="q" placeholder="Tìm sản phẩm..." class="w-full text-xs py-2.5 pl-9 pr-3 border border-zinc-300 focus:border-zinc-950 focus:ring-0" />
-                    <svg class="w-4 h-4 text-zinc-400 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                </form>
-            </div>
-
-            <!-- Navigation Links -->
-            <div class="py-3 space-y-1 text-xs">
-                <a href="{{ route('home') }}" class="block font-bold uppercase tracking-wider text-zinc-900 py-2.5 border-b border-zinc-100">Trang Chủ</a>
-                <a href="{{ route('shop') }}" class="block font-bold uppercase tracking-wider text-zinc-900 py-2.5 border-b border-zinc-100">Tất Cả Sản Phẩm</a>
-                
-                <!-- Accordion Menu Categories -->
-                <div x-data="{ expanded: false }" class="border-b border-zinc-100 py-2">
-                    <button type="button" @click="expanded = !expanded" class="w-full flex items-center justify-between font-bold uppercase tracking-wider text-zinc-900 py-1">
-                        <span>Danh Mục Sản Phẩm</span>
-                        <svg class="w-4 h-4 transition-transform text-zinc-400" :class="{ 'rotate-180': expanded }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                    </button>
-                    <div x-show="expanded" x-collapse class="pl-3 pt-2 space-y-2 text-zinc-600 font-medium">
-                        <a href="{{ route('category.show', 'ao-so-mi') }}" class="block py-1 hover:text-black">Áo Sơ Mi Nam</a>
-                        <a href="{{ route('category.show', 'ao-thun') }}" class="block py-1 hover:text-black">Áo Thun Trơn & Oversize</a>
-                        <a href="{{ route('category.show', 'ao-polo') }}" class="block py-1 hover:text-black">Áo Polo Dệt Kim</a>
-                        <a href="{{ route('category.show', 'quan-jean') }}" class="block py-1 hover:text-black">Quần Jean Denim</a>
-                        <a href="{{ route('category.show', 'quan-tay') }}" class="block py-1 hover:text-black">Quần Tây & Chinos</a>
-                        <a href="{{ route('category.show', 'ao-khoac') }}" class="block py-1 hover:text-black">Áo Khoác & Blazer</a>
-                        <a href="{{ route('category.show', 'vay-dam') }}" class="block py-1 hover:text-black">Váy & Đầm Nữ</a>
-                        <a href="{{ route('category.show', 'phu-kien') }}" class="block py-1 hover:text-black">Phụ Kiện Thời Trang</a>
-                    </div>
-                </div>
-
-                <a href="{{ route('shop', ['filter' => 'new']) }}" class="flex items-center justify-between font-bold uppercase tracking-wider text-emerald-700 py-2.5 border-b border-zinc-100">
-                    <span>Hàng Mới Về 2026</span>
-                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                </a>
-
-                <a href="{{ route('shop', ['filter' => 'sale']) }}" class="flex items-center justify-between font-bold uppercase tracking-wider text-rose-600 py-2.5 border-b border-zinc-100">
-                    <span>Ưu Đãi Giảm Giá</span>
-                    <span class="px-1.5 py-0.5 bg-rose-600 text-white text-[9px] font-bold">HOT</span>
-                </a>
-
-                <a href="{{ route('blog.index') }}" class="block font-semibold uppercase tracking-wider text-zinc-800 py-2.5 border-b border-zinc-100">Journal & Tin Tức</a>
-                <a href="{{ route('about') }}" class="block font-semibold uppercase tracking-wider text-zinc-800 py-2.5 border-b border-zinc-100">Về Thương Hiệu</a>
-                <a href="{{ route('contact') }}" class="block font-semibold uppercase tracking-wider text-zinc-800 py-2.5">Liên Hệ & Showroom</a>
-            </div>
-        </div>
-
-        <!-- Drawer Footer: Auth / Contact -->
-        <div class="p-5 border-t border-zinc-200 bg-zinc-50 space-y-3">
-            @auth
-                <div class="text-xs text-zinc-600 mb-2">Xin chào: <strong>{{ Auth::user()->name }}</strong></div>
-                @if(Auth::user()->isAdmin())
-                    <a href="{{ route('admin.dashboard') }}" class="block w-full py-2.5 bg-amber-600 text-white text-center text-xs font-bold uppercase tracking-wider">Trang Quản Trị</a>
-                @endif
-                <a href="{{ route('account.dashboard') }}" class="block w-full py-2.5 bg-zinc-950 text-white text-center text-xs font-semibold uppercase tracking-wider">Tài Khoản Của Tôi</a>
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit" class="block w-full py-2 text-rose-600 text-center text-xs font-semibold">Đăng Xuất</button>
-                </form>
-            @else
-                <div class="grid grid-cols-2 gap-2">
-                    <a href="{{ route('login') }}" class="py-2.5 bg-zinc-950 text-white text-center text-xs font-semibold uppercase tracking-wider">Đăng Nhập</a>
-                    <a href="{{ route('register') }}" class="py-2.5 bg-white border border-zinc-950 text-zinc-950 text-center text-xs font-semibold uppercase tracking-wider">Đăng Ký</a>
-                </div>
-            @endauth
-
-            <div class="text-center text-[11px] text-zinc-400 pt-2">
-                Hotline hỗ trợ: <strong>1900 888 999</strong> (8:30 - 22:00)
             </div>
         </div>
     </div>
